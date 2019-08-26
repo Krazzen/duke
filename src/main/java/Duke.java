@@ -49,15 +49,10 @@ public class Duke {
 
     }
     public static void level3() {
-        //Task t = new Task("read book");
-        //t.markAsDone();
-        //Task k = new Task("return book");
-        //Task m = new Task("buy bread");
+
 
         ArrayList<Task> list = new ArrayList<Task>();
-        // list.add(t);
-        //list.add(k);
-        //list.add(m);
+
         while (true) {
 
             Scanner scanner = new Scanner(System.in);
@@ -93,8 +88,72 @@ public class Duke {
             }
         }
     }
-    public static void level4(){
+    public static void level4() {
+        ArrayList<Task> list = new ArrayList<Task>();
 
+        while (true) {
+
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            String[] splitt = input.split(" ");
+            if(splitt[0].equalsIgnoreCase("list")){
+                    int j = 1;
+                    for (int k = 0; k < list.size(); k++) {
+
+                        System.out.print(j);
+                        System.out.print(". ");
+                        System.out.println(list.get(j - 1).toString());
+                        j++;
+                    }
+                }
+            else if (splitt[0].equalsIgnoreCase("done")) {
+                int index = Integer.parseInt(splitt[1]) - 1;
+                list.get(index).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(list.get(index).toString());
+            }
+            else if (splitt[0].equalsIgnoreCase("bye")) {
+                System.out.print("Bye. Hope to see you again soon!");
+                break;
+            }
+            else{
+                String[] wordsplit = input.split(" ");
+                String cmd = wordsplit[0];
+                String det = wordsplit[1];
+                for (int i = 2; i < wordsplit.length; i++) {
+                    det += " " + wordsplit[i];
+                }
+                if (cmd.equalsIgnoreCase("todo")) {
+                    Todo td = new Todo(det);
+                    list.add(td);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("[T][" + td.getStatusIcon() + "] " + det);
+                    System.out.println("Now you have " + list.size() + " tasks in the lists.");
+                }
+                else if(cmd.equalsIgnoreCase("event")){
+                    String[] secsplit = det.split("/");
+                    secsplit[1] = secsplit[1].substring(3);
+                    Event ev = new Event(secsplit[0],secsplit[1]);
+                    list.add(ev);
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("[E][" + ev.getStatusIcon() + "] " + secsplit[0] + " (at:" + secsplit[1] + ")");
+                    System.out.println("Now you have " + list.size() + " tasks in the lists.");
+                }
+                else if(cmd.equalsIgnoreCase("deadline")){
+                    String[] secsplit = det.split("/");
+                    secsplit[1] = secsplit[1].substring(3);
+                    Deadline dl = new Deadline(secsplit[0],secsplit[1]);
+                    list.add(dl);
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("[D][" + dl.getStatusIcon() + "] " + secsplit[0] + " (by:" + secsplit[1] + ")");
+                    System.out.println("Now you have " + list.size() + " tasks in the lists.");
+                }
+            }
+
+
+        }
     }
 
 
@@ -107,8 +166,10 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         //level1();
-        // level2();
-        level3();
+        //level2();
+        //level3();
+        level4();
+
     }
 
 }
