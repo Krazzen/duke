@@ -3,9 +3,16 @@
         protected String description;
         protected boolean isDone;
 
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
+        public Task(String description) throws DukeException {
+            if(description.equals(null)){
+                throw new DukeException("Cannot be empty" );
+            }else if (description.equals("todo")){
+                throw new DukeException("fail" );
+            }
+            else {
+                this.description = description;
+                this.isDone = false;
+            }
         }
 
         public String getStatusIcon() {
