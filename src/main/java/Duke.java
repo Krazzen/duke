@@ -95,7 +95,9 @@ public class Duke {
             }*/
         }
     }
-    public static void level46() {
+
+    public static void level469() {
+
        // ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
@@ -121,6 +123,7 @@ public class Duke {
                 } else if (splitt[0].equalsIgnoreCase("bye")) {
                     System.out.print("Bye. Hope to see you again soon!");
                     break;
+
                 } else if (splitt[0].equalsIgnoreCase("delete")) {
 
                     int rm = Integer.parseInt(splitt[1]) - 1;
@@ -132,6 +135,8 @@ public class Duke {
                     System.out.println( des);
                     System.out.println("Now you have " + list.size() + " tasks in the lists.");
                 }
+
+
 
                 else {
 
@@ -258,8 +263,9 @@ public class Duke {
         //level1();
         //level2();
         //level3();
-        level46();
-        //loadFile("savefile.txt",list);
+
+        level469();
+        loadFile("savefile.txt",list);
 
         //level7();
 
