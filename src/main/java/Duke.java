@@ -55,7 +55,7 @@ public class Duke {
     public static void level3() {
 
 
-        ArrayList<Task> list = new ArrayList<Task>();
+       // ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
 
@@ -87,15 +87,15 @@ public class Duke {
                 System.out.print("Bye. Hope to see you again soon!");
                 break;
             }
-            else{
+/*            else{
 
                   Task t = new Task(wordsplit[0] + " " + wordsplit[1]);
                   list.add(t);
 
-            }
+            }*/
         }
     }
-    public static void level4() {
+    public static void level46() {
        // ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
@@ -121,7 +121,19 @@ public class Duke {
                 } else if (splitt[0].equalsIgnoreCase("bye")) {
                     System.out.print("Bye. Hope to see you again soon!");
                     break;
-                } else {
+                } else if (splitt[0].equalsIgnoreCase("delete")) {
+
+                    int rm = Integer.parseInt(splitt[1]) - 1;
+                    String status = list.get(rm).getStatusIcon();
+                    Task.TypeClass type1 = list.get(rm).getType();
+                    String des = list.get(rm).toString();
+                    list.remove(rm);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println( des);
+                    System.out.println("Now you have " + list.size() + " tasks in the lists.");
+                }
+
+                else {
 
                     String[] wordsplit = input.split(" ");
                     String cmd = wordsplit[0];
@@ -167,13 +179,14 @@ public class Duke {
                         catch (DukeException e){
                             System.out.println(e);
                         }
+
                     }
                 }
 
             }
 
         }
-    private static void loadFile(String fileName, ArrayList<Task> list) {
+    public static void loadFile(String fileName, ArrayList<Task> list) {
         try {
             String w = null;
             FileReader fileReader = new FileReader(fileName);
@@ -212,8 +225,7 @@ public class Duke {
             e.printStackTrace();
         }
     }
-
-    private static void writeToFile(FileWriter fw, ArrayList<Task> list) throws IOException {
+    public static void writeToFile(FileWriter fw, ArrayList<Task> list) throws IOException {
         for(Task item:list){
             switch(item.getType()){
                 case T:
@@ -232,6 +244,8 @@ public class Duke {
 
 
 
+
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -244,8 +258,9 @@ public class Duke {
         //level1();
         //level2();
         //level3();
-        level4();
-        loadFile("savefile.txt",list);
+        level46();
+        //loadFile("savefile.txt",list);
+
         //level7();
 
     }
