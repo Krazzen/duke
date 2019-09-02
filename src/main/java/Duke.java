@@ -134,7 +134,31 @@ public class Duke {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println( des);
                     System.out.println("Now you have " + list.size() + " tasks in the lists.");
+                } else if(splitt[0].equalsIgnoreCase("find")) {
+                ArrayList<Task> matchlist = new ArrayList<Task>();
+                for(Task task:list){
+                    String test = task.GetDes();
+                    boolean isFound = test.contains(splitt[1]);
+                    if(isFound){
+                        matchlist.add(task);
+                    }
                 }
+                System.out.println("Here are the matching tasks in your list:");
+                int j = 1;
+                for (int i = 0; i < matchlist.size(); i++) {
+
+                    System.out.print(j);
+                    System.out.print(".[");
+                    System.out.print(matchlist.get(j - 1).getStatusIcon());
+                    System.out.print("] ");
+                    System.out.println(matchlist.get(j - 1).description);
+
+                    j++;
+                }
+
+            }
+
+
 
 
 
