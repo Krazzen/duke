@@ -55,7 +55,7 @@ public class Duke {
     public static void level3() {
 
 
-        ArrayList<Task> list = new ArrayList<Task>();
+       // ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
 
@@ -95,7 +95,7 @@ public class Duke {
             }
         }
     }
-    public static void level4() {
+    public static void level469() {
        // ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
@@ -121,7 +121,30 @@ public class Duke {
                 } else if (splitt[0].equalsIgnoreCase("bye")) {
                     System.out.print("Bye. Hope to see you again soon!");
                     break;
-                } else {
+                } else if(splitt[0].equalsIgnoreCase("find")) {
+                    ArrayList<Task> matchlist = new ArrayList<Task>();
+                    for(Task task:list){
+                        String test = task.GetDes();
+                        boolean isFound = test.contains(splitt[1]);
+                        if(isFound){
+                            matchlist.add(task);
+                        }
+                    }
+                    System.out.println("Here are the matching tasks in your list:");
+                    int j = 1;
+                    for (int i = 0; i < matchlist.size(); i++) {
+
+                        System.out.print(j);
+                        System.out.print(".[");
+                        System.out.print(matchlist.get(j - 1).getStatusIcon());
+                        System.out.print("] ");
+                        System.out.println(matchlist.get(j - 1).description);
+
+                        j++;
+                    }
+
+                }
+                else {
 
                     String[] wordsplit = input.split(" ");
                     String cmd = wordsplit[0];
@@ -244,7 +267,7 @@ public class Duke {
         //level1();
         //level2();
         //level3();
-        level4();
+        level469();
         loadFile("savefile.txt",list);
         //level7();
 
