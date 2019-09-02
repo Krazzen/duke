@@ -1,6 +1,14 @@
 public class DukeException extends Exception {
-    public DukeException(String message){
-        super(message);
+    private String command;
+
+    public DukeException(String command) {
+        this.command = command;
     }
 
+    public boolean isValid() {
+        if (command.equals("todo") || command.equals("done") || command.equals("list") ||command.equals("event")){
+            return true;
+        }
+        return false;
+    }
 }

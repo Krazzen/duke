@@ -1,18 +1,13 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URI;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 
 public class Duke {
-    static StringBuffer stringBufferOfData = new StringBuffer();
-    static String filename = null;
-    static Scanner sc = new Scanner(System.in);
-
-
-
+    private static ArrayList<Task> list = new ArrayList<Task>();
     public static void level1() {
         System.out.print("Hello, I'm Duke. \n What can i do for you? \n");
         Scanner scanner;
@@ -57,7 +52,7 @@ public class Duke {
         }
 
     }
-    public static void level3() throws DukeException {
+    public static void level3() {
 
 
         ArrayList<Task> list = new ArrayList<Task>();
@@ -93,18 +88,15 @@ public class Duke {
                 break;
             }
             else{
-              try {
+
                   Task t = new Task(wordsplit[0] + " " + wordsplit[1]);
                   list.add(t);
-              }
-              catch (DukeException e){
-                  System.out.println(e.getMessage());
-              }
+
             }
         }
     }
     public static void level4() {
-        ArrayList<Task> list = new ArrayList<Task>();
+       // ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
 
@@ -145,8 +137,8 @@ public class Duke {
                            System.out.println("[T][" + td.getStatusIcon() + "] " + det);
                            System.out.println("Now you have " + list.size() + " tasks in the lists.");
                        }
-                       catch (DukeException e){
-                           System.out.println(e);
+                       catch (DukeException e) {
+                           System.out.println(" \u2639 OOPS!!! The description of a todo cannot be empty.\n" );
                        }
                     } else if (cmd.equalsIgnoreCase("event")) {
                         try {
@@ -181,64 +173,62 @@ public class Duke {
             }
 
         }
-   /* public void save(String fileName) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
-        for ( Task task : list)
-            pw.println(task.getStatusIcon());
-        pw.close();
-    }*/
-    private static boolean readFile() {
-        System.out.println("Please enter your files name and path i.e C:\\test.txt: ");//prompt for file name
-        filename = sc.nextLine();//read in the file name
-        Scanner fileToRead = null;
+    private static void loadFile(String fileName, ArrayList<Task> list) {
         try {
-            fileToRead = new Scanner(new File(filename)); //point the scanner method to a file
-            //check if there is a next line and it is not null and then read it in
-            for (String line; fileToRead.hasNextLine() && (line = fileToRead.nextLine()) != null; ) {
-                System.out.println(line);//print each line as its read
-                stringBufferOfData.append(line).append("\r\n");//this small line here is to appened all text read in from the file to a string buffer which will be used to edit the contents of the file
+            String w = null;
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while((w = bufferedReader.readLine()) != null){
+            //List<String> lines = Files.readAllLines(Paths.get(filePath));
+            //for(String w:lines) {
+                String[] splitline = w.split(" " + "\\|" + " ", 0);
+                switch (splitline[0]) {
+                    case("T"):
+                        Todo temp = new Todo(splitline[2]);
+                        if (splitline[1].equals("1")) temp.markAsDone();
+                        list.add(temp);
+                        break;
+                    case("D"):
+                        Deadline temp2 = new Deadline(splitline[2],splitline[3]);
+                        if (splitline[1].equals("1")) temp2.markAsDone();
+                        list.add(temp2);
+                        break;
+                    case("E"):
+                        Event temp3 = new Event(splitline[2],splitline[3]);
+                        if (splitline[1].equals("1")) temp3.markAsDone();
+                        list.add(temp3);
+                        break;
+                    default:
+                        break;
+                }
             }
-            fileToRead.close();//this is used to release the scanner from file
-            return true;
-        } catch (FileNotFoundException ex) {//if the file cannot be found an exception will be thrown
-            System.out.println("The file " + filename + " could not be found! " + ex.getMessage());
-            return false;
-        } finally {//if an error occurs now we close the file to exit gracefully
-            fileToRead.close();
-            return true;
         }
+        catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + fileName + "'");
         }
-    private static void writeToFile() {
-        try {
-            BufferedWriter bufwriter = new BufferedWriter(new FileWriter(filename));
-            bufwriter.write(stringBufferOfData.toString());//writes the edited string buffer to the new file
-            bufwriter.close();//closes the file
-        } catch (Exception e) {//if an exception occurs
-            System.out.println("Error occured while attempting to write to file: " + e.getMessage());
+        catch (IOException ex) {
+            System.out.println("Error reading file '" + fileName + "'");
+        } catch (DukeException e) {
+            e.printStackTrace();
         }
     }
-    private static void replacement() {
-        System.out.println("Please enter the contents of a line you would like to edit: ");//prompt for a line in file to edit
-        String lineToEdit = sc.nextLine();//read the line to edit
-        System.out.println("Please enter the the replacement text: ");//prompt for a line in file to replace
-        String replacementText = sc.nextLine();//read the line to replace
 
-        int startIndex = stringBufferOfData.indexOf(lineToEdit);//now we get the starting point of the text we want to edit
-        int endIndex = startIndex + lineToEdit.length();//now we add the staring index of the text with text length to get the end index
-        stringBufferOfData.replace(startIndex, endIndex, replacementText);//this is where the actual replacement of the text happens
-        System.out.println("Here is the new edited text:\n" + stringBufferOfData); //used to debug and check the string was replaced
-    }
-
-    public static void level7(){
-
-        boolean fileRead = readFile();//call the method to read the file with the files name
-        if (fileRead) {//if the read file was successfull
-            replacement();//call method to get text to replace, replacement text and output replaced String buffer
-            writeToFile();
+    private static void writeToFile(FileWriter fw, ArrayList<Task> list) throws IOException {
+        for(Task item:list){
+            switch(item.getType()){
+                case T:
+                    fw.write("T | " + (item.status().equals(true) ? "1" : "0") + " | " + item.GetDes() +'\n');
+                    break;
+                case D:
+                    fw.write("D | " + (item.status().equals(true) ? "1" : "0") + " | " + item.GetDes() + " | " + ((Deadline) item).GetBy() + "\n");
+                    break;
+                case E:
+                    fw.write("E | " + (item.status().equals(true) ? "1" : "0") + " | " + item.GetDes() + " | " + ((Event) item).GetAt() + "\n");
+                    break;
+            }
         }
-        System.exit(0);//exit once app is done
-
     }
+
 
 
 
@@ -249,11 +239,14 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+
+
         //level1();
         //level2();
         //level3();
         level4();
-        level7();
+        loadFile("savefile.txt",list);
+        //level7();
 
     }
 
