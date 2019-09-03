@@ -2,13 +2,13 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
-    private static ArrayList<Task> nlist = new ArrayList<Task>();
+    public static ArrayList<Task> list = new ArrayList<Task>();
     public Storage(String filename)  {
-        loadFile(filename,this.nlist);
+        loadFile(filename,list);
 
     }
-    public ArrayList<Task> Getlist(){
-        return nlist;
+   public ArrayList<Task> Getlist(){
+        return list;
     }
 
     public static void loadFile(String fileName, ArrayList<Task> list) {

@@ -1,4 +1,0 @@
-T | 0 | buy bread
-T | 0 | go to school
-D | 0 | assignment 1  | 7 Sept
-E | 0 | bread workshop  | 1200
