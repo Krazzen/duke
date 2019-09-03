@@ -1,7 +1,7 @@
 public class Todo extends Task {
 
 
-    public Todo(String description) throws DukeException {
+    public Todo(String description)  {
         super(description);
         Type = TypeClass.T;
 
