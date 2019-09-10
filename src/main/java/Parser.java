@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-/* deals with making sense of the user command
-    Commands: list, bye, find..
+/** deals with making sense of the user command
  */
 public class Parser {
 

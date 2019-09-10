@@ -1,3 +1,8 @@
+/**
+ * Represents the exception for Duke program.
+ */
+
+
 public class DukeException extends Exception {
     private String command;
 

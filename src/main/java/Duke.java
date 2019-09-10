@@ -1,11 +1,10 @@
-import javax.swing.*;
-import java.io.*;
-import java.lang.reflect.Array;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
 
+import java.io.*;
+
+/**
+ * Serves the functions of a Todolist
+ * @return String responding to input
+ */
 public class Duke {
 
     public static TaskList tasks;

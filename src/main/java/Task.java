@@ -1,4 +1,6 @@
-
+/**
+ * Represents main task of program
+ */
     public class Task {
         protected String description;
         public boolean isDone;
@@ -6,37 +8,54 @@
         public enum TypeClass {
             T, D, E;
         }
-
-        public Task(String description)  {
-
-                this.description = description;
-                this.isDone = false;
+    /**
+     * Creates Task object.
+     * @param description The description of the task
+     */
+    public Task(String description)  {
+        this.description = description;
+        this.isDone = false;
 
         }
-        public TypeClass getType() {
+    /**
+     * Returns type of task
+     * @return  return object type
+     */
+    public TypeClass getType() {
             return this.Type;
         }
-
-        public String getStatusIcon() {
-
-            return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+    /**
+     * Checks whether the task is completed.
+     * @return This returns a tick or cross depending on the boolean value of isDone
+     */
+    public String getStatusIcon() {
+        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+    }
+    /**
+     * Return status of task
+     * @return True if task is done and false if not
+     */
+    public String status(){
+        if (isDone) {
+            return "true";
         }
-        public String status(){
-            if (isDone) {
-                return "true";
-            }
-            else{
-                return "false";
-            }
+        else{
+            return "false";
         }
-        public String GetDes(){
-            return description;
-        }
-
-        public boolean markAsDone(){
-
-            return isDone = true;
-        }
+    }
+    /**
+     * Gets the description of a task.
+     * @return  string description of the task
+     */
+    public String GetDes(){
+        return description;
+    }
+    /**
+     * Marks the task to done.
+     */
+    public boolean markAsDone(){
+        return isDone = true;
+    }
     }
 
 

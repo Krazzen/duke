@@ -7,11 +7,14 @@ import java.lang.reflect.*;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-/* deals with updating of tasklist
+/** deals with updating of tasklist
     Commands: todo..., deadline..,event..., delete .., done..,
  */
 public class TaskList {
-
+    /**
+     * This method modifies,add,remove Task objects from the ArrayList.
+     * @param list Tasklist to be updated
+     */
     public TaskList( ArrayList<Task> list) {
 
         Scanner scanner;
@@ -23,7 +26,7 @@ public class TaskList {
 
         String[] wordsplit = inputString.split(" ");
         if (inputString.equalsIgnoreCase("bye")) {
-            System.out.print("Bye. Hope to see you again soon!");
+            System.out.print("hbk");
             System.exit(0);
 
             //break;

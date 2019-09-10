@@ -1,16 +1,30 @@
 import java.io.*;
 import java.util.ArrayList;
-
+/**
+ * Deals with loading or saving tasklist to and from a file.
+ */
 public class Storage {
     public static ArrayList<Task> list = new ArrayList<Task>();
+    /**
+     * Creates Storage object.
+     * @param filename String of the file's filepath
+     */
     public Storage(String filename)  {
         loadFile(filename,list);
 
     }
+    /**
+     * @return  updated tasklist
+     */
    public static ArrayList<Task> Getlist(){
         return list;
     }
-
+    /**
+     * Loads the file and TaskList object with tasks in the file.
+     * @param list To update the TaskList object with tasks from the file
+     * @param fileName String of the file's filepath
+     *
+     */
     public static void loadFile(String fileName, ArrayList<Task> list) {
         try {
             String w = null;
@@ -48,6 +62,12 @@ public class Storage {
             System.out.println("Error reading file '" + fileName + "'");
         }
     }
+    /**
+     * Updates the file in the filepath with the current
+     * list of tasks that the user has set.
+     * @param list TaskList object with existing tasks to be saved in the file
+     * @throws IOException failed or interrupted I/O operations.
+     */
     public static void writeToFile(FileWriter fw, ArrayList<Task> list) throws IOException {
         for(Task item:list){
             switch(item.getType()){

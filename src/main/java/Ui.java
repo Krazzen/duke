@@ -10,6 +10,9 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
+    /**
+     * Prints greeting message in duke
+     * */
     public Ui() {
         System.out.println("Hello from\n" + logo);
         System.out.print("Hello, I'm Duke. \n What can i do for you? \n");
