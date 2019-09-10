@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.URI;
@@ -6,33 +7,38 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Duke {
-//Include UI
-    public static TaskList tasks;
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.print("Hello, I'm Duke. \n What can i do for you? \n");
-        Storage storage = new Storage("duke.txt");
 
-        while (true){
+    public static TaskList tasks;
+    public static Ui ui;
+    public static Storage storage;
+
+    public Duke(String filepath) {
+
+        storage = new Storage(filepath);
+        ui = new Ui();
+
+        while (true) {
 
             tasks = new TaskList(storage.Getlist());
 
             try {
-                File fold = new File("duke.txt");
+                File fold = new File(filepath);
                 fold.delete();
-                FileWriter fw = new FileWriter("duke.txt");
-                Storage.writeToFile(fw,storage.Getlist());
+                FileWriter fw = new FileWriter(filepath);
+                Storage.writeToFile(fw, storage.Getlist());
                 fw.close();
 
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.out.println("Something Went Wrong!");
             }
         }
+    }
+    public void run(){
+
+    }
+
+
+    public static void main(String[] args) {
+        new Duke("duke.txt").run();
     }
 }

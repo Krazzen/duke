@@ -7,7 +7,7 @@ public class Storage {
         loadFile(filename,list);
 
     }
-   public ArrayList<Task> Getlist(){
+   public static ArrayList<Task> Getlist(){
         return list;
     }
 
